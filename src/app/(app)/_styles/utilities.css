@@ -1,0 +1,5 @@
+@layer utilities {
+  .block-body-onsearch {
+    overflow: hidden;
+  }
+}

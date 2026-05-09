@@ -1,0 +1,41 @@
+{
+  "locales": {
+    "short": {
+      "en": "EN",
+      "de": "DE"
+    },
+    "long": {
+      "en": "English",
+      "de": "Deutsch"
+    }
+  },
+  "youtubeConsent": {
+    "buttonLabel": "YouTube-Inhalte laden",
+    "message": "Um dieses Video anzuzeigen, benötigen wir Ihre Zustimmung zum Laden der Inhalten von YouTube."
+  },
+
+  "button": {
+    "more": "Weitere Infos"
+  },
+  "search": {
+    "placeholder": "Suche...",
+    "noResults": "Keine Ergebnisse gefunden",
+    "clear": "Suche löschen"
+  },
+
+  "AppFooter": {},
+
+  "CarouselNavigation": {
+    "previous": "Vorherige",
+    "next": "Nächste"
+  },
+
+  "NavbarMobile": {
+    "openMobileMenu": "Mobile Navigation öffnen",
+    "closeMobileMenu": "Mobile Navigation schließen"
+  },
+
+  "collectionsTags": {
+    "pages": "Seite"
+  }
+}

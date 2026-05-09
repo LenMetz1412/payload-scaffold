@@ -1,0 +1,15 @@
+services:
+  mongodb:
+    image: mongo:8
+    container_name: payload-scaffold-mongodb
+    ports:
+      - '27017:27017'
+    command:
+      - --storageEngine=wiredTiger
+    volumes:
+      - mongo_data:/data/db
+    logging:
+      driver: json-file
+
+volumes:
+  mongo_data:

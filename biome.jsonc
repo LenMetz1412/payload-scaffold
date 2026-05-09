@@ -1,0 +1,95 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.8/schema.json",
+  "files": {
+    "includes": ["src/**", "*.ts", "*.tsx", "*.js", "*.mjs", "*.json", "*.jsonc", "*.css"]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded",
+      "trailingCommas": "all",
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "double"
+    }
+  },
+  "css": {
+    "linter": {
+      "enabled": true
+    },
+    "formatter": {
+      "enabled": true
+    },
+    "parser": {
+      "cssModules": true,
+      "tailwindDirectives": true
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noArrayIndexKey": "off",
+        "noDuplicateProperties": "off",
+        "noUnknownAtRules": "off",
+        "useIterableCallbackReturn": "warn",
+        "noControlCharactersInRegex": "warn",
+        "noShadowRestrictedNames": "warn",
+        "noImplicitAnyLet": "warn"
+      },
+      "correctness": {
+        "noUnusedVariables": "warn",
+        "noUnusedImports": "warn",
+        "noUnusedFunctionParameters": "off",
+        "noInvalidPositionAtImportRule": "off",
+        "useExhaustiveDependencies": "off",
+        "noUnknownProperty": "off",
+        "noEmptyPattern": "warn",
+        "useHookAtTopLevel": "warn"
+      },
+      "complexity": {
+        "noUselessFragments": "off",
+        "noBannedTypes": "warn"
+      },
+      "performance": {
+        "noImgElement": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "off",
+        "useImportType": "warn",
+        "useNodejsImportProtocol": "off",
+        "noDescendingSpecificity": "off"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      },
+      "a11y": {
+        "noSvgWithoutTitle": "off",
+        "useKeyWithClickEvents": "off",
+        "noInteractiveElementToNoninteractiveRole": "off",
+        "noNoninteractiveElementToInteractiveRole": "off",
+        "noNoninteractiveElementInteractions": "off",
+        "noStaticElementInteractions": "off",
+        "useValidAnchor": "off",
+        "useSemanticElements": "off",
+        "useButtonType": "off",
+        "useAnchorContent": "off",
+        "useMediaCaption": "off",
+        "noLabelWithoutControl": "off"
+      }
+    }
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  }
+}

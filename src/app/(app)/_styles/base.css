@@ -1,0 +1,76 @@
+@layer base {
+  h1,
+  h1 span,
+  h2,
+  h2 span,
+  h3,
+  h3 span,
+  h4,
+  h4 span,
+  h5,
+  h5 span,
+  h6,
+  h6 span {
+    margin: unset;
+    @apply font-sans font-normal;
+  }
+
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+
+    --payload-background: 0 0% 8%;
+    --payload-foreground: 0 0% 100%;
+
+    --card: 240 5% 96%;
+    --card-foreground: 0 0% 0%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+
+    --primary: var(--foreground);
+    --primary-foreground: var(--background);
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 0 0% 0%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 0 0% 0%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: inherit;
+
+    --radius: 0.2rem;
+
+    --success: 196 52% 74%;
+    --warning: 34 89% 85%;
+    --error: 10 100% 86%;
+
+    --nav: 0 0% 100%;
+    --nav-foreground: 0 0% 0%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply flex min-h-[100vh] flex-col bg-background font-serif text-foreground;
+  }
+
+  strong,
+  b {
+    letter-spacing: -0.05em;
+  }
+}
+
+html {
+  @apply font-serif;
+}

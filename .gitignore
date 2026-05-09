@@ -1,0 +1,40 @@
+# dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+build/
+
+# environment
+.env
+.env.local
+.env.*.local
+
+# Payload CMS
+src/migrations/
+src/payload-types.ts
+
+# TypeScript
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+
+# generated
+next-env.d.ts
+
+# database backups
+db.backups/
+
+# OS
+.DS_Store
+.DS_Store?
+Thumbs.db
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# editor
+.vscode/
+.idea/
