@@ -18,7 +18,7 @@ export const NavItemLink = ({
   return (
     <Link
       className={cn(
-        menuTriggerVariants({ fullWidth: true, current: isCurrent }),
+        menuTriggerVariants({ fullWidth: true, current: isCurrent, hover: 'underline' }),
       )}
       href={item.link}
       onClick={onClick}

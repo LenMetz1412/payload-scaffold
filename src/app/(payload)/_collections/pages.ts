@@ -27,6 +27,7 @@ import { getCollectionAccessControl } from '../_utils/rbac'
 
 export const Pages: CollectionConfig = {
   ...getCollectionConfig(CollectionSlugs.Pages),
+  trash: true,
 
   access: {
     ...getCollectionAccessControl(CollectionSlugs.Pages),

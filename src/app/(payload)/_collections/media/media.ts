@@ -8,6 +8,7 @@ import { getUploaderBaseConfig } from '@/payload/utils/uploader-config'
 
 export const Media: CollectionConfig = {
   ...getCollectionConfig(CollectionSlugs.Media),
+  trash: true,
 
   admin: getCollectionAdminConfig(CollectionSlugs.Media, {
     group: AdminPanelsGroups.Media,

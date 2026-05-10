@@ -12,7 +12,7 @@ export const BeforeDashboard = () => {
 
   return (
     <AdminDictionaryProvider locale={locale}>
-      <div className="relative z-50 max-w-max rounded-md bg-accent p-4 text-black">
+      <div className="relative z-50 w-full rounded-md bg-accent p-3 text-black">
         <SearchBar
           locale={locale}
           variant="inline"

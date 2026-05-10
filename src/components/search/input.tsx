@@ -49,11 +49,11 @@ export const SearchInput = forwardRef<
         />
         <button
           type="button"
-          className="flex size-5 shrink-0 rounded-full border bg-gray-200 !p-0 text-accent shadow-none"
+          className="flex size-5! shrink-0 items-center justify-center rounded-full border bg-gray-200 p-0! text-accent shadow-none"
           onClick={handleClear}
           aria-label={t.search.clear}
         >
-          <XIcon size="100%" aria-hidden="true" />
+          <XIcon size={12} aria-hidden="true" />
         </button>
       </div>
     </div>

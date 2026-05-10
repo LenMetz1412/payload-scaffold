@@ -1,5 +1,16 @@
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --width-search: 480px;
+  --width-search-results: 700px;
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-foreground: hsl(var(--foreground));
+  --color-background: hsl(var(--background));
+}
 
 :root {
   --background: 0 0% 100%;

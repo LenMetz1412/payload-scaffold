@@ -16,6 +16,8 @@ export const menuTriggerVariants = cva(
       hover: {
         default:
           'hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground data-[active]:bg-accent/50 data-[state=open]:bg-accent/50',
+        underline:
+          'underline-offset-4 hover:underline focus:underline data-[active]:underline data-[state=open]:underline',
       },
       current: {
         true: 'bg-primary text-primary-foreground',

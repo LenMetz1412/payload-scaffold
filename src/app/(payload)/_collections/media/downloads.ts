@@ -8,6 +8,7 @@ import { getCollectionAdminConfig, getCollectionConfig } from '@/payload/utils/c
 
 export const Downloads: CollectionConfig = {
   ...getCollectionConfig(CollectionSlugs.Downloads),
+  trash: true,
 
   admin: getCollectionAdminConfig(CollectionSlugs.Downloads, {
     group: AdminPanelsGroups.Media,
@@ -36,10 +37,6 @@ export const Downloads: CollectionConfig = {
       label: 'Preview Thumbnail',
     },
   ],
-
-  // hooks: {
-  //   beforeChange: [generateWebpFromPDF],
-  // },
 }
 
 export default Downloads

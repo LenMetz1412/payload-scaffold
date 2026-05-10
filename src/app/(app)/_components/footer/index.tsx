@@ -9,7 +9,6 @@ import { getDictionary } from '@/i18n'
 import { getMediaSrc } from '@/utils/get-url'
 import { getCachedGlobalCollection } from '@/utils/local-api/global'
 import { isValidMedia } from '@/utils/media'
-import { FooterIcon } from './logo'
 
 export const AppFooter = async ({
   locale,
@@ -58,12 +57,6 @@ export const AppFooter = async ({
       )}
       <footer className="container mb-10 mt-16 p-0 pl-4 lg:px-4">
         <div className="grid grid-cols-2 gap-8 gap-y-16 text-base lg:grid-cols-5 lg:gap-12">
-          {showLogo && (
-            <div className="col-span-2 mb-8 lg:mb-0 lg:block">
-              <FooterIcon width={190} height={190} className="mb-4" />
-              {claimText && <p className="whitespace-pre-line font-sans text-2xl">{claimText}</p>}
-            </div>
-          )}
 
           {sections?.map((section, sectionIdx) => (
             <div key={sectionIdx}>

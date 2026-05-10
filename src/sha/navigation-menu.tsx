@@ -1,4 +1,5 @@
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu'
+import type { VariantProps } from 'class-variance-authority'
 import * as React from 'react'
 
 import { cn } from '@/utils/cn'
@@ -39,11 +40,12 @@ const NavigationMenuTrigger = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Trigger> & {
     isCurrent?: boolean
+    hover?: VariantProps<typeof menuTriggerVariants>['hover']
   }
->(({ className, children, isCurrent = false, ...props }, ref) => (
+>(({ className, children, isCurrent = false, hover, ...props }, ref) => (
   <NavigationMenuPrimitive.Trigger
     ref={ref}
-    className={cn(menuTriggerVariants({ current: isCurrent, withChevron: true }), className)}
+    className={cn(menuTriggerVariants({ current: isCurrent, withChevron: true, hover }), className)}
     {...props}
   >
     {children}

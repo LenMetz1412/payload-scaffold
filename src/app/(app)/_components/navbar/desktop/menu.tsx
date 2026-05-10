@@ -22,7 +22,7 @@ export const NavbarMenuDesktop = () => {
   return (
     <div className="flex items-center justify-between">
       <div className="flex h-full w-full items-center gap-2 xl:gap-8">
-        <div className="flex h-[72px] items-center lg:pl-4">
+        <div className="flex h-18 items-center lg:pl-4">
           <Logo href="/" />
         </div>
         <div className="flex h-full items-center justify-end">
@@ -46,6 +46,7 @@ export const NavMenuItem = ({ item }: { item: NavItemEntry }) => {
       <NavigationMenuList className="bg-none">
         <NavigationMenuItem className="bg-none">
           <NavigationMenuTrigger
+            hover="underline"
             className={cn('bg-none text-lg', {
               'bg-primary text-primary-foreground': isCurrent,
             })}
@@ -53,7 +54,7 @@ export const NavMenuItem = ({ item }: { item: NavItemEntry }) => {
             {item.title}
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="flex w-80 flex-col gap-0.5 p-3">
+            <ul className="flex w-50 flex-col gap-0.5 p-3">
               {item.subItems?.map((subItem) => (
                 <li key={subItem.id}>
                   <NavigationMenuLink asChild>

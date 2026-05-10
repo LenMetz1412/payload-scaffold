@@ -38,3 +38,6 @@ pnpm-debug.log*
 # editor
 .vscode/
 .idea/
+
+
+system/media

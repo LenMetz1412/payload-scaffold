@@ -4,11 +4,8 @@ import type { FC, SVGProps } from 'react'
 import type { Locale } from '@/config/locales'
 import { menuTriggerVariants } from '@/sha/variants'
 
-import { FacebookIcon } from '../icons/facebook'
 import { InstagramIcon } from '../icons/instagram'
-import { LeichteSpracheIcon } from '../icons/leichte-sprache'
 import { LinkedInIcon } from '../icons/linked-in'
-import { NewsletterIcon } from '../icons/newsletter'
 import { LocaleSwitch } from '../locale-switch'
 import {
   getSecondaryNavItems,
@@ -19,16 +16,13 @@ import {
 type SecondaryNavPlacement = 'navbar' | 'footer'
 
 const placementOrder: Record<SecondaryNavPlacement, SecondaryNavItemIdentifier[]> = {
-  navbar: ['easyLanguage', 'instagram', 'linkedin', 'newsletter'],
-  footer: ['easyLanguage', 'instagram', 'linkedin', 'facebook'],
+  navbar: ['instagram', 'linkedin'],
+  footer: ['instagram', 'linkedin'],
 }
 
 const icons: Record<SecondaryNavItemIdentifier, FC<SVGProps<SVGSVGElement>>> = {
-  easyLanguage: LeichteSpracheIcon,
-  facebook: FacebookIcon,
   instagram: InstagramIcon,
   linkedin: LinkedInIcon,
-  newsletter: NewsletterIcon,
 }
 
 export const SecondaryNav = ({

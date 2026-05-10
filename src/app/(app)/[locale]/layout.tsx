@@ -3,11 +3,9 @@ import type { Metadata, Viewport } from 'next'
 import { notFound } from 'next/navigation'
 
 import { Providers } from '@/providers'
-import { cn } from '@/utils/cn'
 
 import { Navbar } from '../_components/navbar'
 import { DraftModeControls } from '../_components/payload/draft-mode-controls'
-import { Sans, Serif } from '../_styles/fonts'
 
 import '../globals.css'
 
@@ -40,7 +38,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
   const dictionary = await getDictionary(locale)
 
   return (
-    <html className={cn(Sans.variable, Serif.variable)} lang={locale} suppressHydrationWarning>
+    <html className="font-sans" lang={locale} suppressHydrationWarning>
       <body>
         <DictionaryProvider dictionary={dictionary}>
           <Providers>

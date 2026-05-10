@@ -1,5 +1,4 @@
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { env } from '@env'
 import type { UploadConfig } from 'payload'
 
@@ -18,8 +17,6 @@ const { PAYLOAD_PUBLIC_ASSETS_PATH } = env
  * @returns {Object} The upload configuration object.
  */
 
-const filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(filename)
 
 export const getUploaderBaseConfig = ({
   collectionSlug,
@@ -30,7 +27,9 @@ export const getUploaderBaseConfig = ({
   imageSizes?: UploadConfig['imageSizes']
   mimeTypes?: UploadConfig['mimeTypes']
 }): UploadConfig => ({
-  staticDir: path.resolve(dirname, PAYLOAD_PUBLIC_ASSETS_PATH, collectionSlug),
+  staticDir: path.isAbsolute(PAYLOAD_PUBLIC_ASSETS_PATH)
+    ? path.join(PAYLOAD_PUBLIC_ASSETS_PATH, collectionSlug)
+    : path.resolve(process.cwd(), PAYLOAD_PUBLIC_ASSETS_PATH, collectionSlug),
   resizeOptions: {
     withoutEnlargement: true,
   },
