@@ -1,6 +1,3 @@
-import { ArrowRight } from 'lucide-react'
-import Link from 'next/link'
-import type React from 'react'
 import type { CollectionSlugs } from '@/config/collections'
 import { defaultLocale, type Locale } from '@/config/locales'
 import type { ButtonProps } from '@/sha/button'
@@ -9,6 +6,9 @@ import type { BaseDocument } from '@/utils/base-document'
 import { cn } from '@/utils/cn'
 import { getLocalizedPath } from '@/utils/i18n/path'
 import { getPopulatedRelation, sanitizeString } from '@/utils/sanitize'
+import { ArrowRight } from 'lucide-react'
+import Link from 'next/link'
+import type React from 'react'
 
 type LinkReference = {
   relationTo: string
@@ -52,7 +52,7 @@ export const CMSLink: React.FC<CMSLinkProps> = ({
 
   const linkContent = (
     <>
-      <ArrowRight className="transition-all group-hover:mr-6 group-hover:translate-x-6" />
+      <ArrowRight />
       {label}
       {children}
     </>
@@ -97,7 +97,7 @@ export const CMSLink: React.FC<CMSLinkProps> = ({
         <div className="h2 inline-flex items-center gap-2">
           {label}
           {children}
-          <ArrowRight className="transition-transform group-hover:translate-x-1" size={48} />
+          <ArrowRight size={48} />
         </div>
       </Link>
     </Button>
