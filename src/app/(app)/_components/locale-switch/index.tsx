@@ -1,6 +1,7 @@
 'use client'
 
 import { GlobeIcon } from 'lucide-react'
+import { usePathname, useRouter } from 'next/navigation'
 
 import type { Locale } from '@/config/locales'
 import { locales } from '@/config/locales'
@@ -13,8 +14,6 @@ import {
 } from '@/sha/dropdown-menu'
 import { cn } from '@/utils/cn'
 
-import { LocaleLink } from './link'
-
 export const LocaleSwitch = ({
   currentLocale,
   format = 'long',
@@ -25,6 +24,14 @@ export const LocaleSwitch = ({
   asMobileNavBarItem?: boolean
 }) => {
   const t = useDictionary()
+  const pathname = usePathname()
+  const router = useRouter()
+
+  const switchLocale = (locale: Locale) => {
+    const newPath = pathname.replace(`/${currentLocale}`, `/${locale}`)
+    router.push(newPath)
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger fullWidth={asMobileNavBarItem}>
@@ -34,10 +41,12 @@ export const LocaleSwitch = ({
         </div>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-48">
+      <DropdownMenuContent align="end" className="min-w-5 w-23">
         {locales.map((locale) => (
-          <DropdownMenuItem key={locale}>
-            <LocaleLink {...{ locale, currentLocale, label: t.locales[format][locale] }} />
+          <DropdownMenuItem key={locale} onSelect={() => switchLocale(locale)}>
+            <span className={cn('font-sans', { 'font-medium': locale === currentLocale })}>
+              {t.locales[format][locale]}
+            </span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
