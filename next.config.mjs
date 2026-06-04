@@ -39,6 +39,7 @@ const nextConfig = {
 
   reactStrictMode: true,
   output: 'standalone',
+  devIndicators: { position: 'bottom-right' },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })
