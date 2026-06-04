@@ -2,24 +2,7 @@ import type { Field } from 'payload'
 
 export const searchFieldsOverrides: Field[] = [
   {
-    name: 'excludeFromSearch',
-    type: 'checkbox',
-    index: true,
-    defaultValue: false,
-    admin: {
-      readOnly: true,
-      position: 'sidebar',
-    },
-  },
-  {
     name: 'description',
-    type: 'text',
-    index: true,
-    localized: true,
-    admin: { readOnly: true },
-  },
-  {
-    name: 'credits',
     type: 'text',
     index: true,
     localized: true,
@@ -45,10 +28,13 @@ export const searchFieldsOverrides: Field[] = [
     admin: { readOnly: true, position: 'sidebar' },
   },
   {
-    name: 'subCredits',
+    name: 'heroImageUrl',
     type: 'text',
-    index: true,
-    localized: true,
+    admin: { readOnly: true },
+  },
+  {
+    name: 'heroImageAlt',
+    type: 'text',
     admin: { readOnly: true },
   },
   {
@@ -59,7 +45,7 @@ export const searchFieldsOverrides: Field[] = [
     admin: { readOnly: true },
   },
   {
-    name: 'contentBlockField',
+    name: 'contentBlock',
     type: 'array',
     localized: true,
     fields: [
@@ -92,7 +78,7 @@ export const searchFieldsOverrides: Field[] = [
     admin: { readOnly: true },
   },
   {
-    name: 'faqBlockField',
+    name: 'faqBlock',
     type: 'array',
     localized: true,
     fields: [

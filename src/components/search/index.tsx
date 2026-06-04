@@ -1,6 +1,5 @@
 "use client";
 
-import { SearchIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -67,7 +66,6 @@ export const SearchBar = (
     isSearchOpen,
     closeSearch,
     openSearch,
-    toggleSearch,
   } = useCollapsableSearch({
     resetSearch,
     isMobile,
@@ -154,7 +152,6 @@ export const SearchBar = (
         />
 
         <SearchResultsList
-          isMobile={isMobile}
           searchResults={searchResults}
           searchTerm={debouncedSearchTerm}
           isLoadingText={t.search.placeholder}
@@ -162,21 +159,8 @@ export const SearchBar = (
           isLoading={isLoading}
           onSelectItem={onSelectItem}
           adminMode={adminMode}
-          locale={locale}
         />
       </div>
-
-      <button
-        type="button"
-        onClick={toggleSearch}
-        aria-label="Toggle Search"
-        className={cn(
-          "z-50 flex h-9 items-center justify-center px-3 hover:bg-accent hover:text-accent-foreground",
-          isSearchOpen && "bg-accent text-accent-foreground",
-        )}
-      >
-        <SearchIcon className="size-5" />
-      </button>
     </div>
   );
 };

@@ -8,6 +8,8 @@ import { adminPanelsGroups } from '@/config/collections/groups'
 import type { Locale } from '@/config/locales'
 import { defaultLocale, locales } from '@/config/locales'
 
+import { getLocalizedCollectionsSlug } from '@/utils/i18n/collections'
+
 import { getCollectionAccessControl, getCollectionAdminUiVisibility } from './rbac'
 
 /**
@@ -76,7 +78,7 @@ export const getCollectionAdminConfig = (
         url: ({ data, locale }) => {
           // livePreview is not reliable with localized slug and locale param
           const path = generatePreviewPath({
-            id: `${typeof data.id === 'string' ? data.id : ''}`,
+            slug: `${typeof data.slug === 'string' ? data.slug : data.id}`,
             locale: locale as unknown as Locale,
             collection,
           })
@@ -88,7 +90,7 @@ export const getCollectionAdminConfig = (
     ...(preview && {
       preview: (doc, { locale }) =>
         generatePreviewPath({
-          id: `${typeof doc.id === 'string' ? doc.id : ''}`,
+          slug: `${typeof doc.slug === 'string' ? doc.slug : doc.id}`,
           locale: locale as unknown as Locale,
           collection,
         }),
@@ -99,7 +101,7 @@ export const getCollectionAdminConfig = (
 /**
  * Generates a preview path for a document.
  * @param {object} params - The parameters for generating the preview path.
- * @param {string} params.id - The id of the document.
+ * @param {string} params.slug - The slug (or id fallback) of the document.
  * @param {Locale} params.locale - The locale of the document.
  * @param {CollectionSlugs} params.collection - The collection of the document.
  * @returns A string representing the preview path.
@@ -124,14 +126,16 @@ const normalizeLocale = (locale: PayloadLocale): Locale => {
 export const generatePreviewPath = ({
   locale,
   collection,
-  id,
+  slug,
 }: {
-  id: string
+  slug: string
   locale: PayloadLocale
   collection: CollectionSlugs
 }) => {
   const resolvedLocale = normalizeLocale(locale)
-  const path = `/${resolvedLocale}/${collection}/${id}`
+  const collectionSegment = getLocalizedCollectionsSlug(collection, resolvedLocale)
+  const segments = [resolvedLocale, collectionSegment, slug].filter(Boolean)
+  const path = `/${segments.join('/')}`
   return `/next/preview?path=${encodeURIComponent(path)}`
 }
 

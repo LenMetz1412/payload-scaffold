@@ -1,5 +1,3 @@
-import type { GlobalConfig } from 'payload'
-
 import { link } from '@/app/(payload)/_fields/link'
 import { GlobalCollectionSlugs } from '@/config/collections/globals'
 import { AdminPanelsGroups } from '@/config/collections/groups'
@@ -7,7 +5,14 @@ import {
   getGlobalCollectionAdminConfig,
   getGlobalCollectionConfig,
 } from '@/payload/utils/global-config'
-
+import {
+  BlocksFeature,
+  FixedToolbarFeature,
+  HeadingFeature,
+  InlineToolbarFeature,
+  lexicalEditor,
+} from '@payloadcms/richtext-lexical'
+import type { GlobalConfig } from 'payload'
 import { revalidateFooter } from './revalidate'
 
 export const Footer: GlobalConfig = {
@@ -15,21 +20,34 @@ export const Footer: GlobalConfig = {
   admin: getGlobalCollectionAdminConfig(GlobalCollectionSlugs.AppSettings, AdminPanelsGroups.Admin),
   fields: [
     {
-      name: 'claimText',
-      type: 'textarea',
+      name: 'footerText',
+      type: 'richText',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => {
+          return [
+            ...rootFeatures,
+            HeadingFeature({ enabledHeadingSizes: ['h2', 'h3'] }),
+            FixedToolbarFeature(),
+            InlineToolbarFeature(),
+            BlocksFeature({
+              blocks: [],
+            }),
+          ]
+        },
+      }),
       localized: true,
       label: {
-        en: 'Claim Text',
-        de: 'Claim-Text',
+        en: 'Footer Text',
+        de: 'Footer-Text',
       },
       required: false,
     },
     {
-      name: 'sections',
+      name: 'topics',
       type: 'array',
       label: {
-        en: 'Sections',
-        de: 'Abschnitte',
+        en: 'Topics',
+        de: 'Themen',
       },
       fields: [
         {

@@ -42,10 +42,10 @@ export const HighImpactHero: React.FC<PageHeroProps> = ({
   useEffect(() => {
     if (!hasMultipleSlides) return
     setRenderedSlides((prev) => {
-      const next = new Set(prev)
-      next.add(selectedIndex)
-      next.add((selectedIndex + 1) % slides.length)
-      return next
+      const nextSlide = new Set(prev)
+      nextSlide.add(selectedIndex)
+      nextSlide.add((selectedIndex + 1) % slides.length)
+      return nextSlide
     })
   }, [selectedIndex, hasMultipleSlides, slides.length])
 
@@ -85,7 +85,7 @@ export const HighImpactHero: React.FC<PageHeroProps> = ({
     return (
       <div
         className={cn(
-          'relative flex w-full items-center justify-center text-black',
+          'relative flex w-full items-center justify-center text-white',
           heroTheme === 'dark' ? 'text-background' : 'text-foreground',
         )}
       >
@@ -172,7 +172,7 @@ export const HighImpactHero: React.FC<PageHeroProps> = ({
                           'border-background hover:border-foreground',
                         heroTheme === 'dark' &&
                           link.appearance === 'filled' &&
-                          'border-background bg-background text-foreground hover:border-foreground hover:bg-foreground hover:text-background',
+                          'border-background bg-background text-foreground hover:border-gray-300 hover:bg-gray-300 hover:text-background',
                       )}
                       size="lg"
                     />

@@ -4,7 +4,6 @@ import { hero } from '@/components/heros/config'
 import { CollectionSlugs } from '@/config/collections'
 import { AdminPanelsGroups } from '@/config/collections/groups'
 import { Content } from '@/payload/blocks/Content/config'
-import { CreditBlock } from '@/payload/blocks/Credit/config'
 import { FaqBlock } from '@/payload/blocks/FaqBlock/config'
 import { GapBlock } from '@/payload/blocks/GapBlock/config'
 import { HeroBlock } from '@/payload/blocks/HeroBlock/config'
@@ -51,22 +50,6 @@ export const Pages: CollectionConfig = {
   fields: [
     ...getBaseDocumentFields(CollectionSlugs.Pages),
     {
-      name: 'excludeFromSearch',
-      type: 'checkbox',
-      label: {
-        de: 'Von Suche ausschließen',
-        en: 'Exclude from search',
-      },
-      defaultValue: false,
-      admin: {
-        description: {
-          de: 'Diese Seite erscheint nicht in den Suchergebnissen',
-          en: 'This page will not appear in search results',
-        },
-        position: 'sidebar',
-      },
-    },
-    {
       type: 'tabs',
       tabs: [
         {
@@ -84,7 +67,6 @@ export const Pages: CollectionConfig = {
               type: 'blocks',
               blocks: [
                 Content,
-                CreditBlock,
                 DownloadBlock,
                 FaqBlock,
                 GapBlock,

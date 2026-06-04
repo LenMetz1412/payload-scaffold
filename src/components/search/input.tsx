@@ -1,4 +1,4 @@
-import { XIcon } from 'lucide-react'
+import { SearchIcon, XIcon } from 'lucide-react'
 import { forwardRef, useCallback } from 'react'
 
 import { useDictionary } from '@/i18n/context'
@@ -34,26 +34,27 @@ export const SearchInput = forwardRef<
     <div className="h-9 w-full overflow-hidden">
       <div
         className={cn(
-          'flex h-full items-center gap-2 border bg-accent-foreground px-3 text-accent',
+          'flex h-full items-center gap-2 border border-gray-300 rounded-lg bg-accent-foreground px-3 text-accent',
           className,
         )}
       >
+        <SearchIcon size={16} className="shrink-0" aria-hidden="true" />
         <Input
           ref={ref}
           value={searchTerm}
           placeholder={t.search.placeholder}
-          className="flex-1 border-0 text-inherit shadow-none focus:outline-none"
+          className="flex-1 border-0 text-inherit shadow-none outline-none focus-visible:ring-0 focus-visible:[box-shadow:none]"
           onChange={handleChange}
           onFocus={onFocus}
           onBlur={onBlur}
         />
         <button
           type="button"
-          className="flex size-5! shrink-0 items-center justify-center rounded-full border bg-gray-200 p-0! text-accent shadow-none"
+          className="flex size-5! shrink-0 items-center justify-center p-0! text-accent shadow-none"
           onClick={handleClear}
           aria-label={t.search.clear}
         >
-          <XIcon size={12} aria-hidden="true" />
+          <XIcon size={20} aria-hidden="true" />
         </button>
       </div>
     </div>

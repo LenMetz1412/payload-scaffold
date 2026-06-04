@@ -1,6 +1,6 @@
-import qs from 'qs'
 import type { CollectionSlugs } from '@/config/collections'
 import type { Locale } from '@/config/locales'
+import qs from 'qs'
 
 import { normalizeStringForComparison } from '../sanitize'
 import { COLLECTION_PRIORITIES, getSearchWords, SEARCHABLE_QUERY_LIMIT } from './base'
@@ -10,12 +10,11 @@ import { STOP_WORDS } from './stop-words'
 export interface SearchDoc {
   id: string
   collections: string
-  excludeFromSearch?: boolean
   title: string
   description: string
-  credits: string
-  subCredits: string
   slug: string
+  heroImageUrl?: string
+  heroImageAlt?: string
   heroRichText?: string
   contentBlockField?: { cols: { text: string }[] }[]
   faqBlockField?: { question?: string; answer?: string }[]
@@ -31,8 +30,6 @@ export interface SearchMatch {
     heroRichText: boolean
     contentBlock: boolean
     faq: boolean
-    credits: boolean
-    subCredits: boolean
   }
   displayText: string
   displayField: string | null
@@ -127,8 +124,6 @@ function getSearchMatch(doc: SearchDoc, searchTerm: string, _now: Date): SearchM
         heroRichText: false,
         contentBlock: false,
         faq: false,
-        credits: false,
-        subCredits: false,
       },
       displayText: '',
       displayField: null,
@@ -149,8 +144,6 @@ function getSearchMatch(doc: SearchDoc, searchTerm: string, _now: Date): SearchM
       block.cols.some((col) => matches(col.text)),
     ),
     faq: (doc.faqBlockField || []).some((f) => matches(f.question) || matches(f.answer)),
-    credits: matchesWithLevel(doc.credits, 'word-boundary'),
-    subCredits: matchesWithLevel(doc.subCredits, 'word-boundary'),
   }
 
   const keyFieldValues = DOC_KEY_FIELDS.map((field) => doc[field])
@@ -167,12 +160,13 @@ function getSearchMatch(doc: SearchDoc, searchTerm: string, _now: Date): SearchM
     score = 1
   } else if (hasKeyFieldMatch) {
     score = 2
-  } else if (matchedIn.description || matchedIn.heroRichText || matchedIn.contentBlock || matchedIn.faq) {
+  } else if (
+    matchedIn.description ||
+    matchedIn.heroRichText ||
+    matchedIn.contentBlock ||
+    matchedIn.faq
+  ) {
     score = 3
-  } else if (matchedIn.credits) {
-    score = 4
-  } else if (matchedIn.subCredits) {
-    score = 5
   }
 
   let displayText = ''
@@ -181,9 +175,11 @@ function getSearchMatch(doc: SearchDoc, searchTerm: string, _now: Date): SearchM
   if (!hasKeyFieldMatch) {
     const displayFieldPriority = [
       { field: 'description' as const, matched: matchedIn.description, format: (v: string) => v },
-      { field: 'credits' as const, matched: matchedIn.credits, format: (v: string) => v },
-      { field: 'subCredits' as const, matched: matchedIn.subCredits, format: (v: string) => v },
-      { field: 'heroRichText' as const, matched: matchedIn.heroRichText, format: (v: string) => v || '' },
+      {
+        field: 'heroRichText' as const,
+        matched: matchedIn.heroRichText,
+        format: (v: string) => v || '',
+      },
     ]
 
     for (const { field, matched, format } of displayFieldPriority) {
@@ -207,7 +203,9 @@ function getSearchMatch(doc: SearchDoc, searchTerm: string, _now: Date): SearchM
         (f) => matches(f.question) || matches(f.answer),
       )
       if (matchedFaq) {
-        displayText = matches(matchedFaq.question) ? matchedFaq.question || '' : matchedFaq.answer || ''
+        displayText = matches(matchedFaq.question)
+          ? matchedFaq.question || ''
+          : matchedFaq.answer || ''
       }
       displayField = 'faq'
     }
@@ -280,7 +278,6 @@ export async function searchDocs(
               })),
             })),
           },
-          { excludeFromSearch: { not_equals: true } },
           ...(draft ? [] : [{ _status: { equals: 'published' } }]),
         ],
       },
@@ -318,8 +315,5 @@ export async function searchDocs(
   ])
   if (results.length >= limit) return getSortedResults()
 
-  await fetchAndAdd(['credits', 'subCredits'])
-
   return getSortedResults()
 }
-

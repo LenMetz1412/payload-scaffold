@@ -8,10 +8,6 @@ export const SEARCHABLE_QUERY_LIMIT = 50
 
 export const SEARCH_TERM_MIN_LENGTH = 3
 
-export const SEARCHABLE_COLLECTIONS: CollectionSlugs[] = [
-  CollectionSlugs.Pages,
-] as const
-
 export const COLLECTION_PRIORITIES: Partial<Record<CollectionSlugs, number>> = {
   [CollectionSlugs.Pages]: 1,
 } as const

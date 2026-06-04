@@ -1,14 +1,18 @@
+import { CollectionSlugs } from '@/config/collections'
+import { adminPanelsGroups, AdminPanelsGroups } from '@/config/collections/groups'
 import { searchPlugin } from '@payloadcms/plugin-search'
-
-import { COLLECTION_PRIORITIES, SEARCHABLE_COLLECTIONS } from './base'
+import { COLLECTION_PRIORITIES } from './base'
 import { beforeSyncWithSearch } from './beforeSync'
 import { searchFieldsOverrides } from './fieldOverrides'
 
 export const initSearchPlugin = () => {
   return searchPlugin({
-    collections: [...SEARCHABLE_COLLECTIONS],
+    collections: [CollectionSlugs.Pages],
     beforeSync: beforeSyncWithSearch,
     searchOverrides: {
+      admin: {
+        group: adminPanelsGroups[AdminPanelsGroups.Admin],
+      },
       fields: ({ defaultFields }) => {
         return [...defaultFields, ...searchFieldsOverrides]
       },

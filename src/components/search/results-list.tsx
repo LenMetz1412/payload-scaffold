@@ -1,14 +1,12 @@
 'use client'
 
 import { AnimatePresence, motion } from 'motion/react'
-import { useEffect, useMemo, useRef } from 'react'
+import Image from 'next/image'
+import { useEffect, useRef } from 'react'
 
 import { HighlightMatch } from '@/components/search/highlight'
-import { CollectionSlugs } from '@/config/collections'
-import { defaultLocale, type Locale } from '@/config/locales'
-import { useDictionary } from '@/i18n/context'
 import { cn } from '@/utils/cn'
-import { DOC_KEY_FIELDS, type SearchDocWithMatch } from '@/utils/search/search-docs'
+import type { SearchDocWithMatch } from '@/utils/search/search-docs'
 
 export type SearchResultsListOnSelectItem = (doc: SearchDocWithMatch) => void
 
@@ -19,8 +17,6 @@ export const SearchResultsList = ({
   noResultsText,
   isLoading,
   adminMode,
-  locale,
-  isMobile,
   onSelectItem,
 }: {
   searchResults: SearchDocWithMatch[]
@@ -29,8 +25,6 @@ export const SearchResultsList = ({
   noResultsText?: string
   isLoading?: boolean
   adminMode?: boolean
-  locale?: Locale
-  isMobile?: boolean
   onSelectItem: SearchResultsListOnSelectItem
 }) => {
   const hasResults = searchResults.length > 0
@@ -50,9 +44,8 @@ export const SearchResultsList = ({
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.5 }}
           className={cn(
-            'absolute top-full mt-2 max-w-full overflow-hidden border bg-white font-sans shadow-lg',
+            'absolute top-full mt-2 w-full overflow-hidden bg-white font-sans shadow-lg rounded-lg',
             adminMode ? 'left-0' : 'right-0',
-            isMobile ? 'w-search md:max-w-search' : 'w-searchResults md:max-w-searchResults',
           )}
         >
           <ul
@@ -68,8 +61,6 @@ export const SearchResultsList = ({
                   doc={doc}
                   searchTerm={searchTerm}
                   onSelect={() => onSelectItem(doc)}
-                  adminMode={adminMode}
-                  locale={locale}
                 />
               ))
             ) : (
@@ -85,88 +76,43 @@ export const SearchResultsList = ({
 const SearchResultItem = ({
   doc,
   searchTerm,
-  adminMode,
-  locale = defaultLocale,
   onSelect,
 }: {
   doc: SearchDocWithMatch
   searchTerm: string
-  adminMode?: boolean
-  locale?: Locale
   onSelect: () => void
 }) => {
-  const t = useDictionary()
-
-  const collectionTagMap: Partial<Record<string, string>> = {
-    [CollectionSlugs.Pages]: t.collectionsTags.pages,
-  }
-
-  const localizedCollection = collectionTagMap[doc.collections]
-
-  const collectionTag = adminMode ? doc.collections : localizedCollection
-
-  const showSlug = useMemo(() => {
-    if (adminMode) return true
-    const otherKeys = DOC_KEY_FIELDS.filter((k) => k !== 'slug')
-
-    return (
-      !!doc.searchMatch.matchedIn.slug &&
-      !otherKeys.some((field) => doc.searchMatch.matchedIn[field])
-    )
-  }, [doc, adminMode])
-
-  const matchedInKeyFields = useMemo(
-    () => DOC_KEY_FIELDS.some((field) => doc.searchMatch.matchedIn[field]),
-    [doc],
-  )
-
-  const matchedInRest = useMemo(
-    () =>
-      Object.entries(doc.searchMatch.matchedIn).some(
-        ([field, value]) =>
-          value && !DOC_KEY_FIELDS.includes(field as (typeof DOC_KEY_FIELDS)[number]),
-      ),
-    [doc],
-  )
-
   return (
     <li
-      className="group m-0 flex cursor-pointer flex-col gap-2 border-b px-6 pb-4 pt-2 text-xs text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+      className="group m-0 flex cursor-pointer border-b border-gray-200 gap-3 px-6 pb-4 pt-2 text-xs text-muted-foreground hover:bg-gray-300 hover:text-accent-foreground"
       onClick={onSelect}
     >
-      {/* <div className="italic">
-        Score: {doc.searchMatch.score}
-        {'-'}
-        {Object.entries(doc.searchMatch.matchedIn)
-          .filter(([_, matched]) => matched)
-          .map(([field]) => field)
-          .join(', ')}
-      </div> */}
-
-      <div className="w-full">
+      <div className="h-14 w-14 shrink-0 overflow-hidden rounded bg-gray-100">
+        {doc.heroImageUrl && (
+          <Image
+            src={doc.heroImageUrl}
+            alt={doc.heroImageAlt ?? ''}
+            width={56}
+            height={56}
+            className="h-full w-full object-cover"
+          />
+        )}
+      </div>
+      <div className="flex min-w-0 flex-col gap-1">
         <HighlightMatch
           text={doc.title}
           term={searchTerm}
-          matched={matchedInKeyFields}
+          matched
           className="text-[1.25em] font-semibold leading-tight text-black group-hover:text-accent-foreground"
         />
-
-        {showSlug && <HighlightMatch text={doc.slug} term={searchTerm} className="truncate" />}
+        <HighlightMatch
+          text={doc.description}
+          term={searchTerm}
+          matched
+          className="line-clamp-2"
+          maxLength={180}
+        />
       </div>
-
-      <HighlightMatch
-        text={doc.searchMatch.displayText}
-        term={searchTerm}
-        className="w-full"
-        matched={matchedInRest}
-        maxLength={180}
-      />
-
-      {!!collectionTag?.length && (
-        <span className="inline-block self-start whitespace-nowrap rounded-full bg-neutral-200 px-2 leading-tight text-black/80">
-          {collectionTag}
-        </span>
-      )}
     </li>
   )
 }

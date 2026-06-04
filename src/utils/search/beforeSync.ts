@@ -1,16 +1,15 @@
 import type { BeforeSync } from '@payloadcms/plugin-search/types'
 
-import type { CollectionSlugs } from '@/config/collections'
+import { CollectionSlugs } from '@/config/collections'
 import type { HeroField } from '@/payload-types'
 
-import { SEARCHABLE_COLLECTIONS } from './base'
 import { extractContentBlocks, extractFAQsFromBlock } from './sync-helpers/blocks'
 import { extractRichTextField } from './sync-helpers/lexical'
 
 export const beforeSyncWithSearch: BeforeSync = async ({ originalDoc, searchDoc }) => {
   const collection = searchDoc.doc.relationTo as CollectionSlugs
 
-  if ([...SEARCHABLE_COLLECTIONS].includes(collection)) {
+  if ([CollectionSlugs.Pages].includes(collection)) {
     const heroField = 'hero' in originalDoc ? (originalDoc.hero as HeroField) : null
     const heroRichText = heroField
       ? heroField.slide
@@ -19,19 +18,23 @@ export const beforeSyncWithSearch: BeforeSync = async ({ originalDoc, searchDoc 
           .join(' ')
       : ''
 
+    const firstSlideMedia = heroField?.slide?.[0]?.media
+    const heroMedia = typeof firstSlideMedia === 'object' ? firstSlideMedia : null
+    const heroImageUrl = heroMedia?.thumbnailURL ?? heroMedia?.url ?? undefined
+    const heroImageAlt = heroMedia?.alt ?? undefined
+
     return {
       ...searchDoc,
       title: originalDoc.title,
       description: originalDoc.description,
-      credits: originalDoc.credits,
-      subCredits: originalDoc.subCredits,
       collections: collection,
       slug: originalDoc.slug,
       _status: originalDoc._status,
-      excludeFromSearch: originalDoc.excludeFromSearch ?? false,
+      heroImageUrl,
+      heroImageAlt,
       heroRichText,
-      faqBlockField: extractFAQsFromBlock(originalDoc.layout),
-      contentBlockField: extractContentBlocks(originalDoc.layout),
+      faqBlock: extractFAQsFromBlock(originalDoc.layout),
+      contentBlock: extractContentBlocks(originalDoc.layout),
     }
   }
 

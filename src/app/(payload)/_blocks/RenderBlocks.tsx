@@ -1,7 +1,5 @@
-import React from 'react'
 import { FooterSpacer } from '@/app/(app)/_components/doc-templates/shared/footer-spacer'
 import { ContentBlock as ContentBlockComponent } from '@/blocks/Content/Component'
-import { CreditBlock as CreditBlockComponent } from '@/blocks/Credit/Component'
 import { DownloadBlock as DownloadBlockComponent } from '@/blocks/DownloadBlock/Component'
 import { FaqBlock as FaqBlockComponent } from '@/blocks/FaqBlock/Component'
 import { GapBlock as GapBlockComponent } from '@/blocks/GapBlock/Component'
@@ -11,6 +9,7 @@ import { MediaBlock as MediaBlockComponent } from '@/blocks/MediaBlock/Component
 import { RenderHero } from '@/components/heros/RenderHero'
 import { defaultLocale, type Locale } from '@/config/locales'
 import type { AppPageParams } from '@/utils/page'
+import React from 'react'
 
 import type { LayoutBlock } from './config'
 
@@ -35,10 +34,6 @@ const renderBlock = ({
 }) => {
   if (block.blockType === 'heroBlock') {
     return <RenderHero {...block.hero} controlsHeroLogo={false} locale={locale} />
-  }
-
-  if (block.blockType === 'creditBlock') {
-    return <CreditBlockComponent {...block} />
   }
 
   if (block.blockType in standardBlockComponents) {

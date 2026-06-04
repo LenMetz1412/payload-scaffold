@@ -81,7 +81,7 @@ export const getCollectionByLocalizedSlug = (
     }
   }
 
-  if (isCollectionSlug(localizedSlug)) return localizedSlug
+  if (isCollectionSlug(localizedSlug) && localizedSlug !== DEFAULT_APP_ROUTE_COLLECTION) return localizedSlug
 
   return undefined
 }
