@@ -1,4 +1,4 @@
-import { useParams } from 'next/navigation'
+import { useParams, usePathname } from 'next/navigation'
 import useSWRImmutable from 'swr/immutable'
 
 import type { Locale } from '@/config/locales'
@@ -21,6 +21,7 @@ export const useLocalizedRoute = ({
   targetLocale: Locale
 }): string => {
   const params = useParams()
+  const pathname = usePathname()
 
   const { data } = useSWRImmutable<string | null>(
     enabled
@@ -32,5 +33,10 @@ export const useLocalizedRoute = ({
     swrCmsDataFetcher,
   )
 
-  return data ?? '/'
+  const currentLocale = params.locale as string
+  const fallback = currentLocale
+    ? pathname.replace(`/${currentLocale}`, `/${targetLocale}`)
+    : `/${targetLocale}`
+
+  return data ?? fallback
 }
