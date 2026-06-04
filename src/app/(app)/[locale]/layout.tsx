@@ -43,7 +43,7 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
         <DictionaryProvider dictionary={dictionary}>
           <Providers>
             <Navbar locale={locale} />
-            <main className="pt-[72px]">{children}</main>
+            <main className="pt-18">{children}</main>
             <AppFooter locale={locale} />
             <DraftModeControls />
           </Providers>
