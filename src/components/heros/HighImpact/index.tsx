@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from 'react'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
-import { useHeroTheme } from '@/contexts/HeroThemeContext'
 import { Carousel, type CarouselApi, CarouselContent, CarouselItem } from '@/sha/carousel'
 import { cn } from '@/utils/cn'
 
@@ -32,7 +31,6 @@ export const HighImpactHero: React.FC<PageHeroProps> = ({
   const slides = slide ?? []
   const hasMultipleSlides = slides.length > 1
 
-  const { heroTheme, setHeroTheme } = useHeroTheme()
   const [carouselApi, setCarouselApi] = useState<CarouselApi>()
   const selectedIndex = useCarouselSelection(carouselApi)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -67,10 +65,6 @@ export const HighImpactHero: React.FC<PageHeroProps> = ({
 
   const { heading1, heading2 } = getHeroHeading({})
 
-  useEffect(() => {
-    setHeroTheme(theme ?? 'light')
-  }, [setHeroTheme, theme])
-
   if (!slides.length) return null
 
   const renderHighImpactContent = (slide: HeroSlide, index: number) => {
@@ -86,7 +80,7 @@ export const HighImpactHero: React.FC<PageHeroProps> = ({
       <div
         className={cn(
           'relative flex w-full items-center justify-center text-white',
-          heroTheme === 'dark' ? 'text-background' : 'text-foreground',
+          theme === 'dark' ? 'text-background' : 'text-foreground',
         )}
       >
         <div
@@ -131,7 +125,7 @@ export const HighImpactHero: React.FC<PageHeroProps> = ({
                   <p
                     className={cn(
                       'label pointer-events-auto mb-2 w-fit text-pretty text-center text-2xl md:text-3xl lg:text-4xl xl:text-4xl',
-                      heroTheme === 'dark' && 'border-background bg-background text-foreground',
+                      theme === 'dark' && 'border-background bg-background text-foreground',
                     )}
                     dangerouslySetInnerHTML={{ __html: heading2 }}
                   />
@@ -149,7 +143,7 @@ export const HighImpactHero: React.FC<PageHeroProps> = ({
               <RichText
                 className={cn(
                   'mt-35 pointer-events-auto mb-2 md:mt-28',
-                  heroTheme === 'dark' && 'prose-invert',
+                  theme === 'dark' && 'prose-invert',
                 )}
                 data={slide.richText}
                 enableGutter={false}
@@ -167,10 +161,10 @@ export const HighImpactHero: React.FC<PageHeroProps> = ({
                       locale={locale}
                       className={cn(
                         'pointer-events-auto',
-                        heroTheme === 'dark' &&
+                        theme === 'dark' &&
                           link.appearance === 'outline' &&
                           'border-background hover:border-foreground',
-                        heroTheme === 'dark' &&
+                        theme === 'dark' &&
                           link.appearance === 'filled' &&
                           'border-background bg-background text-foreground hover:border-gray-300 hover:bg-gray-300 hover:text-background',
                       )}
@@ -216,7 +210,7 @@ export const HighImpactHero: React.FC<PageHeroProps> = ({
                   'relative inline-block h-2 w-8 overflow-hidden pt-2 transition-all duration-300',
                   'before:pointer-events-auto before:absolute before:-bottom-8 before:-left-1 before:-right-1 before:-top-8 before:content-[""]',
                   index === selectedIndex ? 'w-16' : '',
-                  heroTheme === 'dark'
+                  theme === 'dark'
                     ? index === selectedIndex
                       ? 'bg-background/40'
                       : 'bg-background'
@@ -233,7 +227,7 @@ export const HighImpactHero: React.FC<PageHeroProps> = ({
                   ref={setProgressBarRef(index)}
                   className={cn(
                     'absolute inset-0 origin-left scale-x-0 transform-gpu',
-                    heroTheme === 'dark' ? 'bg-background' : 'bg-foreground',
+                    theme === 'dark' ? 'bg-background' : 'bg-foreground',
                   )}
                 />
               </button>
