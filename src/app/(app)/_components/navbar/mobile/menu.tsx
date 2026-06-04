@@ -74,7 +74,7 @@ const NavMenuItem = ({ item }: { item: NavItemEntry }) => {
 
   return (
     <Accordion type="single" collapsible className="mb-0">
-      <AccordionItem value={item.title} className="w-[300px] border-b-0">
+      <AccordionItem value={item.title} className="w-75 border-b-0">
         <AccordionTrigger isCurrent={isCurrent}>{item.title}</AccordionTrigger>
         <AccordionContent className="ml-4 mt-2 flex flex-col gap-0.5">
           {item.subItems?.map((subItem) => (
