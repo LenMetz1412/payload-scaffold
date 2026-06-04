@@ -48,11 +48,15 @@ export const AdminBar: React.FC<{
       style={{
         position: 'fixed',
         zIndex: '9999',
-        bottom: 0,
-        left: 0,
+        bottom: '1.5rem',
+        left: '50%',
         top: 'unset',
-        width: '100%',
-        display: show ? 'flex' : 'hidden',
+        transform: 'translateX(-50%)',
+        width: 'auto',
+        borderRadius: '9999px',
+        backgroundColor: '#ADA579',
+        padding: '0.25rem 1.25rem',
+        display: show ? 'flex' : 'none',
       }}
     />
   )
