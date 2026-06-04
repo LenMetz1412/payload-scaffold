@@ -1,10 +1,9 @@
 'use client'
 
-import { CheckIcon } from 'lucide-react'
-import Link from 'next/link'
-import { useMemo } from 'react'
 import { useLocalizedRoute } from '@/app/hooks/use-localized-route'
 import type { Locale } from '@/config/locales'
+import Link from 'next/link'
+import { useMemo } from 'react'
 
 export const LocaleLink = ({
   locale,
@@ -24,7 +23,6 @@ export const LocaleLink = ({
       <Link className="w-full font-sans" href={href}>
         {label}
       </Link>
-      {isActive && <CheckIcon className="h-5 w-5" />}
     </div>
   )
 }
