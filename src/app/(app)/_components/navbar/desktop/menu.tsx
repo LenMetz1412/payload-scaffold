@@ -20,7 +20,7 @@ export const NavbarMenuDesktop = () => {
   const { items } = useNavbarContext()
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex w-full items-center justify-between">
       <div className="flex h-full w-full items-center gap-2 xl:gap-8">
         <div className="flex h-18 items-center lg:pl-4">
           <Logo href="/" />
@@ -54,7 +54,7 @@ export const NavMenuItem = ({ item }: { item: NavItemEntry }) => {
             {item.title}
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="flex w-50 flex-col gap-0.5 p-3">
+            <ul className="flex w-50 flex-col gap-0.5 py-3 items-center">
               {item.subItems?.map((subItem) => (
                 <li key={subItem.id}>
                   <NavigationMenuLink asChild>
