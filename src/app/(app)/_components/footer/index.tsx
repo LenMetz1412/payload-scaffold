@@ -2,6 +2,7 @@ import Image from 'next/image'
 import type { DataFromGlobalSlug } from 'payload'
 
 import { CMSLink } from '@/components/Link'
+import RichText from '@/components/RichText'
 import { GlobalCollectionSlugs } from '@/config/collections/globals'
 import type { GenericMediaCollection } from '@/config/collections/media'
 import type { Locale } from '@/config/locales'
@@ -28,7 +29,7 @@ export const AppFooter = async ({
   })) as DataFromGlobalSlug<GlobalCollectionSlugs.Footer>
 
   const t = await getDictionary(locale)
-  const { sections, backgroundFooterImage, claimText } = footer
+  const { topics, backgroundFooterImage, footerText } = footer
   // const backgroundImage = getMediaAsBackgroundUrl(backgroundFooterImage, withBackgroundImage)
   const backgroundMedia =
     withBackgroundImage && isValidMedia(backgroundFooterImage)
@@ -55,13 +56,18 @@ export const AppFooter = async ({
           />
         </div>
       )}
-      <footer className="container mb-10 mt-16 p-0 pl-4 lg:px-4">
-        <div className="grid grid-cols-2 gap-8 gap-y-16 text-base lg:grid-cols-5 lg:gap-12">
+      <footer className="container mb-10 p-0 pl-4 lg:px-4">
+        {footerText && (
+          <div className="mb-12 text-2xl lg:text-4xl">
+            <RichText data={footerText} enableGutter={false} locale={locale} />
+          </div>
+        )}
+        <div className="grid grid-cols-2 gap-8 gap-y-16 text-base text-white lg:grid-cols-5 lg:gap-12">
 
-          {sections?.map((section, sectionIdx) => (
-            <div key={sectionIdx}>
+          {topics?.map((topic, topicIdx) => (
+            <div key={topicIdx}>
               <ul className="space-y-4">
-                {section.links?.map(({ link }, linkIdx: number) => (
+                {topic.links?.map(({ link }, linkIdx: number) => (
                   <li key={linkIdx} className="font-medium">
                     <CMSLink
                       {...link}
