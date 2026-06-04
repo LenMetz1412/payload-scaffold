@@ -8,10 +8,11 @@ import { isRelationPopulated } from '@/utils/sanitize'
 
 import type { BlockComponentBaseProps } from '../config'
 import { DownloadButton } from '../DownloadBlock/Component'
-import { ContentGrid } from './Component.client'
+import { ContentGridLayout } from './Component.client'
 
 export const ContentBlock = ({
   columns,
+  headline,
   locale,
   collapsible,
 }: ContentBlockProps & BlockComponentBaseProps) => {
@@ -37,7 +38,10 @@ export const ContentBlock = ({
 
   return (
     <div className="container py-8 first:pt-14">
-      <ContentGrid collapsible={collapsible}>
+      {headline && (
+        <RichText data={headline} enableGutter={false} locale={locale} className="mb-8" />
+      )}
+      <ContentGridLayout collapsible={collapsible}>
         {columns?.reduce<React.ReactNode[]>((acc, col, index) => {
           const {
             enableLink,
@@ -56,7 +60,7 @@ export const ContentBlock = ({
             <div
               className={cn(
                 `lg:col-span-${colsSpanClasses[columnSize!]}`,
-                'group h-full justify-start',
+                'h-full justify-start',
               )}
               key={index}
             >
@@ -91,7 +95,7 @@ export const ContentBlock = ({
           acc.push(column)
           return acc
         }, [])}
-      </ContentGrid>
+      </ContentGridLayout>
     </div>
   )
 }

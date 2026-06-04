@@ -2,12 +2,12 @@
 
 import { CollapsableWrapper } from '@/components/collapsible-content'
 
-interface ContentGridProps {
+interface ContentGridLayoutProps {
   children?: React.ReactNode
   collapsible?: boolean | null | undefined
 }
 
-export const ContentGrid: React.FC<ContentGridProps & { children?: React.ReactNode }> = (props) => {
+export const ContentGridLayout: React.FC<ContentGridLayoutProps & { children?: React.ReactNode }> = (props) => {
   const { children, collapsible } = props
 
   return (

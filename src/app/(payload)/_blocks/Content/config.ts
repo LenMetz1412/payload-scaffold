@@ -173,6 +173,23 @@ export const Content: Block = {
   interfaceName: 'ContentBlock',
   fields: [
     {
+      name: 'headline',
+      type: 'richText',
+      label: { en: 'Headline', de: 'Überschrift' },
+      localized: true,
+      required: false,
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => {
+          return [
+            ...rootFeatures,
+            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3'] }),
+            FixedToolbarFeature(),
+            InlineToolbarFeature(),
+          ]
+        },
+      }),
+    },
+    {
       name: 'collapsible',
       type: 'checkbox',
       label: {
