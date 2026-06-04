@@ -18,7 +18,7 @@
     "more": "Weitere Infos"
   },
   "search": {
-    "placeholder": "Suche...",
+    "placeholder": "Suchen...",
     "noResults": "Keine Ergebnisse gefunden",
     "clear": "Suche löschen"
   },
@@ -37,5 +37,10 @@
 
   "collectionsTags": {
     "pages": "Seite"
+  },
+
+  "notFound": {
+    "message": "404. Die gesuchte Seite konnte nicht gefunden werden.",
+    "backToHome": "Zurück zur Startseite"
   }
 }
