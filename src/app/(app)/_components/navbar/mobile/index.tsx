@@ -32,7 +32,7 @@ export const NavbarMobile = ({ logoHref }: { logoHref: string }) => {
   const t = useDictionary()
 
   return (
-    <div className="relative z-[60] flex h-[72px] w-full items-center justify-between desktop:hidden">
+    <div className="relative z-60 flex h-18 w-full items-center justify-between desktop:hidden shadow-sm">
       <div className="relative left-2 md:left-4">
         <Logo href={logoHref} />
       </div>
