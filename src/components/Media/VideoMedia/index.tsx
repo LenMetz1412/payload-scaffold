@@ -35,7 +35,6 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
 
     if (!src) return null
 
-    const showCopyright = !!resource.copyright
     const {
       className: videoPropsClassName,
       ref: _,
@@ -47,7 +46,7 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
     } = videoProps || {}
 
     return (
-      <div className={cn('group/video relative h-full w-full', customCSS)}>
+      <div className={cn('relative h-full w-full', customCSS)}>
         <video
           autoPlay={autoPlay}
           className={cn(videoClassName, videoPropsClassName)}
@@ -62,13 +61,6 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
         >
           <source src={src} type={resource.mimeType ?? undefined} />
         </video>
-
-        {showCopyright && (
-          <span className="pointer-events-none absolute bottom-1 right-1 z-[9] flex rotate-180 items-center justify-center gap-1 bg-black/40 py-1 font-sans text-xs text-white opacity-100 transition-opacity duration-200 [writing-mode:vertical-rl] group-hover/video:opacity-100 md:opacity-0">
-            <span className="inline-block rotate-90 text-xs">&copy;</span>
-            {resource.copyright}
-          </span>
-        )}
       </div>
     )
   }

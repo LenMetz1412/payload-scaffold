@@ -24,5 +24,4 @@ export interface MediaProps {
     ref?: Ref<HTMLVideoElement>
   }
   isHero?: boolean
-  disableCopyright?: boolean
 }
