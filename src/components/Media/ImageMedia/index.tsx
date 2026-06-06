@@ -23,15 +23,12 @@ export const ImageMedia = (props: MediaProps) => {
     size: sizeFromProps,
     src: srcFromProps,
     customCSS,
-    disableCopyright = false,
   } = props
 
   const objectPosition =
     typeof resource === 'object' && resource.focalX && resource.focalY
       ? `${resource.focalX}% ${resource.focalY}%`
       : ''
-
-  const showCopyright = !disableCopyright && typeof resource === 'object' && resource.copyright
   let width: number | undefined
   let height: number | undefined
   let alt = altFromProps
@@ -70,7 +67,7 @@ export const ImageMedia = (props: MediaProps) => {
   //     .join(', ') + ', 100vw'
 
   return (
-    <div className={cn('group/image', customCSS)}>
+    <div className={customCSS}>
       <Image
         alt={alt || ''}
         className={cn(imgClassName)}
@@ -86,13 +83,6 @@ export const ImageMedia = (props: MediaProps) => {
         style={{ objectPosition: `${objectPosition}` }}
         loading={priority ? 'eager' : 'lazy'}
       />
-
-      {showCopyright && (
-        <span className="pointer-events-none absolute bottom-1 right-1 z-[9] flex rotate-180 items-center justify-center gap-1 bg-black/40 py-1 font-sans text-xs text-white opacity-100 transition-opacity duration-200 [writing-mode:vertical-rl] group-hover/image:opacity-100 md:opacity-0">
-          <span className="inline-block rotate-90 text-xs">&copy;</span>
-          {resource.copyright}
-        </span>
-      )}
     </div>
   )
 }
