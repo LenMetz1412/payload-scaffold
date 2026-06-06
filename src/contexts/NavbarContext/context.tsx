@@ -28,7 +28,14 @@ interface NavbarContextContextType {
 
 const NavbarContext = createContext<NavbarContextContextType | undefined>(undefined)
 
-export function NavbarProvider({ locale, children }: PropsWithChildren & { locale: Locale }) {
+export function NavbarProvider({
+  locale,
+  items: itemsProp,
+  children,
+}: PropsWithChildren & {
+  locale: Locale
+  items?: NavItemEntry[]
+}) {
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const _pathname = usePathname()
   const isMobile = useMediaQuery('mobile')
@@ -77,9 +84,9 @@ export function NavbarProvider({ locale, children }: PropsWithChildren & { local
       closeMobileMenu,
       isMobile,
       locale,
-      items: getNavItems(locale),
+      items: itemsProp ?? getNavItems(locale),
     }),
-    [showMobileMenu, isMobile, toggleMobileMenu, closeMobileMenu, locale],
+    [showMobileMenu, isMobile, toggleMobileMenu, closeMobileMenu, locale, itemsProp],
   )
 
   return <NavbarContext.Provider value={value}>{children}</NavbarContext.Provider>
