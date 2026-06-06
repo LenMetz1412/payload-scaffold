@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority'
 
 export const menuTriggerVariants = cva(
-  'group inline-flex items-center rounded-md font-medium transition-colors focus:outline-none disabled:pointer-events-none disabled:opacity-50',
+  'group inline-flex items-center rounded-md font-medium transition-colors focus:outline-none focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       format: {
@@ -14,8 +14,7 @@ export const menuTriggerVariants = cva(
         serif: 'font-serif',
       },
       hover: {
-        default:
-          'hover:bg-gray-300 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground data-[active]:bg-accent/50 data-[state=open]:bg-accent/50',
+        default: 'hover:underline',
         underline:
           'underline-offset-4 hover:underline focus:underline data-[active]:underline data-[state=open]:underline',
       },
