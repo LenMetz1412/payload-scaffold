@@ -2,10 +2,12 @@ import { FooterSpacer } from '@/app/(app)/_components/doc-templates/shared/foote
 import { ContentBlock as ContentBlockComponent } from '@/blocks/Content/Component'
 import { DownloadBlock as DownloadBlockComponent } from '@/blocks/DownloadBlock/Component'
 import { FaqBlock as FaqBlockComponent } from '@/blocks/FaqBlock/Component'
-import { GapBlock as GapBlockComponent } from '@/blocks/GapBlock/Component'
+import { GoogleReviewsBlockServer as GoogleReviewsBlockComponent } from '@/blocks/GoogleReviewsBlock/ServerWrapper'
 import { IFrameEmbedBlock as IFrameEmbedBlockComponent } from '@/blocks/IFrameEmbedBlock/Component'
 import { LogoGridBlock as LogoGridBlockComponent } from '@/blocks/LogoGridBlock/Component'
 import { MediaBlock as MediaBlockComponent } from '@/blocks/MediaBlock/Component'
+import { SocialFeedBlock as SocialFeedBlockComponent } from '@/blocks/SocialFeedBlock/Component'
+import { SpaceBlock as SpaceBlockComponent } from '@/blocks/SpaceBlock/Component'
 import { RenderHero } from '@/components/heros/RenderHero'
 import { defaultLocale, type Locale } from '@/config/locales'
 import type { AppPageParams } from '@/utils/page'
@@ -17,7 +19,9 @@ const standardBlockComponents = {
   content: ContentBlockComponent,
   downloadBlock: DownloadBlockComponent,
   faqBlock: FaqBlockComponent,
-  gapBlock: GapBlockComponent,
+  googleReviewsBlock: GoogleReviewsBlockComponent,
+  socialFeedBlock: SocialFeedBlockComponent,
+  spaceBlock: SpaceBlockComponent,
   iframeEmbedBlock: IFrameEmbedBlockComponent,
   logoGridBlock: LogoGridBlockComponent,
   mediaBlock: MediaBlockComponent,
@@ -33,7 +37,7 @@ const renderBlock = ({
   searchParams: AppPageParams | undefined
 }) => {
   if (block.blockType === 'heroBlock') {
-    return <RenderHero {...block.hero} controlsHeroLogo={false} locale={locale} />
+    return <RenderHero {...block.hero} locale={locale} />
   }
 
   if (block.blockType in standardBlockComponents) {
@@ -62,9 +66,7 @@ export const RenderBlocks = ({
   return (
     <>
       {blocks.map((block, index) => (
-        <React.Fragment key={index}>
-          {renderBlock({ block, locale, searchParams })}
-        </React.Fragment>
+        <React.Fragment key={index}>{renderBlock({ block, locale, searchParams })}</React.Fragment>
       ))}
 
       <FooterSpacer enabled={withFooterSpacer} />

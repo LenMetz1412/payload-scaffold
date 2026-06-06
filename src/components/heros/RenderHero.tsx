@@ -1,5 +1,3 @@
-import HeroLogoPortal from '@/app/(app)/_components/logo/HeroLogoPortal'
-import Logo from '@/app/(app)/_components/logo/logo'
 import { HighImpactHero } from '@/components/heros/HighImpact'
 import { LowImpactHero } from '@/components/heros/LowImpact'
 import { MediumImpactHero } from '@/components/heros/MediumImpact'
@@ -24,24 +22,14 @@ export interface PageHeroProps extends HeroProps {
   locale?: Locale
 }
 
-export const RenderHero = (
-  props: PageHeroProps & {
-    controlsHeroLogo?: boolean
-  },
-) => {
-  const { type, theme, controlsHeroLogo = true } = props
+export const RenderHero = (props: PageHeroProps) => {
+  const { type, theme } = props
 
   const HeroToRender = heroes[type]
   const safeTheme: HeroTheme = theme === 'dark' ? 'dark' : 'light'
 
   return (
     <HeroThemeProvider initTheme={safeTheme}>
-      {controlsHeroLogo && (
-        <HeroLogoPortal>
-          <Logo />
-        </HeroLogoPortal>
-      )}
-
       <HeroToRender {...props} />
     </HeroThemeProvider>
   )

@@ -86,14 +86,6 @@ export const Media: CollectionConfig = {
         de: 'Bildunterschrift',
       },
     },
-    {
-      name: 'copyright',
-      type: 'text',
-      label: {
-        en: 'Copyright',
-        de: 'Urheberrecht',
-      },
-    },
   ],
   timestamps: true,
 }

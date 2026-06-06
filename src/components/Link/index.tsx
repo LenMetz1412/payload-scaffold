@@ -6,7 +6,7 @@ import type { BaseDocument } from '@/utils/base-document'
 import { cn } from '@/utils/cn'
 import { getLocalizedPath } from '@/utils/i18n/path'
 import { getPopulatedRelation, sanitizeString } from '@/utils/sanitize'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
 import type React from 'react'
 
@@ -18,7 +18,7 @@ type LinkReference = {
 export type CMSLinkType = 'custom' | 'reference' | null
 
 export type CMSLinkProps = {
-  appearance?: 'inline' | 'outline' | ButtonProps['variant']
+  appearance?: 'inline' | 'footerLink' | 'outline' | ButtonProps['variant']
   children?: React.ReactNode
   className?: string
   label?: string | null
@@ -57,6 +57,27 @@ export const CMSLink: React.FC<CMSLinkProps> = ({
       {children}
     </>
   )
+
+  if (appearance === 'footerLink') {
+    const Tag =
+      typeof href === 'string' && (href.startsWith('http://') || href.startsWith('https://'))
+        ? 'a'
+        : (Link as any)
+    return (
+      <Tag
+        href={href}
+        className={cn(
+          'group flex items-center justify-between gap-1 font-sans hover:text-gray-500',
+          className,
+        )}
+        {...newTabProps}
+      >
+        {label}
+        {children}
+        <ArrowUpRight size={20} />
+      </Tag>
+    )
+  }
 
   if (typeof href === 'string' && (href.startsWith('http://') || href.startsWith('https://'))) {
     if (appearance === 'inline') {

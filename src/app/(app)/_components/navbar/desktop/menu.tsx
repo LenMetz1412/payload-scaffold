@@ -1,71 +1,97 @@
 'use client'
 
-import { useNavbarContext } from '@/contexts/NavbarContext/context'
-import type { NavItemEntry } from '@/contexts/NavbarContext/items'
+import Link from 'next/link'
+
+import type { FlyoutArticle, NavItemEntry } from '@/contexts/NavbarContext/items'
 import {
-  NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
-  NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/sha/navigation-menu'
 import { cn } from '@/utils/cn'
 
-import Logo from '../../logo/logo'
-import { NavItemLink } from '../shared/link'
 import { useIsCurrentNavItem } from '../shared/use-is-current'
 
-export const NavbarMenuDesktop = () => {
-  const { items } = useNavbarContext()
+// ── Mega-menu item ────────────────────────────────────────────────────────────
 
+export const MegaMenuItem = ({ item }: { item: NavItemEntry }) => {
+  const isCurrent = useIsCurrentNavItem(item)
   return (
-    <div className="flex w-full items-center justify-between">
-      <div className="flex h-full w-full items-center gap-2 xl:gap-8">
-        <div className="flex h-18 items-center lg:pl-4">
-          <Logo href="/" />
+    <NavigationMenuItem>
+      <NavigationMenuTrigger
+        hover="underline"
+        className={cn('bg-transparent text-base', {
+          'font-semibold': isCurrent,
+        })}
+      >
+        {item.title}
+      </NavigationMenuTrigger>
+
+      <NavigationMenuContent>
+        <div className="grid h-96 grid-cols-[300px_1fr] divide-x divide-gray-100">
+          {/* Left: subcategory list — scrollable when > 4 items */}
+          <ul className="flex h-full flex-col gap-1 overflow-y-auto overscroll-contain p-4">
+            {item.subItems?.map((sub) => (
+              <li key={sub.id}>
+                <NavigationMenuLink asChild>
+                  <Link
+                    href={sub.link}
+                    className="group flex flex-col gap-1 rounded-xl px-3 py-2.5 transition-colors hover:bg-gray-300"
+                  >
+                    <span className="text-sm font-sans md:text-xl text-gray-900 group-hover:text-black">
+                      {sub.title}
+                    </span>
+                    {sub.description && (
+                      <span className="font-sans text-xs md:text-lg leading-snug text-gray-400">
+                        {sub.description}
+                      </span>
+                    )}
+                  </Link>
+                </NavigationMenuLink>
+              </li>
+            ))}
+          </ul>
+
+          {/* Right: latest articles */}
+          <FlyoutArticles articles={item.featuredArticles ?? []} />
         </div>
-        <div className="flex h-full items-center justify-end">
-          {items.slice(1).map((item) =>
-            item.subItems && item.subItems.length > 0 ? (
-              <NavMenuItem key={item.id} item={item} />
-            ) : (
-              <NavItemLink key={item.id} item={item} />
-            ),
-          )}
-        </div>
-      </div>
-    </div>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
   )
 }
 
-export const NavMenuItem = ({ item }: { item: NavItemEntry }) => {
-  const isCurrent = useIsCurrentNavItem(item)
+// ── Latest articles panel ─────────────────────────────────────────────────────
+
+const FlyoutArticles = ({ articles }: { articles: FlyoutArticle[] }) => {
+  if (!articles.length) return null
+
   return (
-    <NavigationMenu>
-      <NavigationMenuList className="bg-none">
-        <NavigationMenuItem className="bg-none">
-          <NavigationMenuTrigger
-            hover="underline"
-            className={cn('bg-none text-lg', {
-              'bg-primary text-primary-foreground': isCurrent,
-            })}
-          >
-            {item.title}
-          </NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="flex w-50 flex-col gap-0.5 py-3 items-center">
-              {item.subItems?.map((subItem) => (
-                <li key={subItem.id}>
-                  <NavigationMenuLink asChild>
-                    <NavItemLink item={subItem} />
-                  </NavigationMenuLink>
-                </li>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+    <div className="flex h-full flex-col gap-4 overflow-y-auto overscroll-contain p-5">
+      <p className="font-sans text-sm md:text-xl font-semibold tracking-widest text-gray-400">
+        Latest articles
+      </p>
+      <div className="grid auto-rows-fr grid-cols-2 gap-4 flex-1">
+        {articles.map((article) => (
+          <Link key={article.id} href={article.href} className="group flex flex-col gap-2">
+            <div className="relative w-full flex-1 overflow-hidden rounded-xl bg-gray-100 transition-opacity group-hover:opacity-80">
+              {article.imageUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={article.imageUrl}
+                  alt={article.title}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-linear-to-br from-gray-200 to-gray-100" />
+              )}
+            </div>
+            <p className="font-sans text-sm md:text-lg font-medium leading-snug text-gray-800 group-hover:text-black">
+              {article.title}
+            </p>
+          </Link>
+        ))}
+      </div>
+    </div>
   )
 }

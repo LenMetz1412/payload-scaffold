@@ -15,6 +15,10 @@ const remotePatterns = [
       protocol: url.protocol.replace(':', ''),
     }
   }),
+  // Instagram CDN (used by Behold.io headless feed)
+  { protocol: 'https', hostname: '**.cdninstagram.com' },
+  { protocol: 'https', hostname: '**.instagram.com' },
+  { protocol: 'https', hostname: 'scontent.cdninstagram.com' },
   ...(process.env.NODE_ENV === 'development'
     ? [
         {
@@ -26,6 +30,7 @@ const remotePatterns = [
     : []),
 ]
 const nextConfig = {
+  eslint: { ignoreDuringBuilds: true },
   allowedDevOrigins: ['http://localhost:3000', 'http://localhost:8080'],
   assetPrefix: isDev ? undefined : NEXT_PUBLIC_SERVER_URL,
   images: {

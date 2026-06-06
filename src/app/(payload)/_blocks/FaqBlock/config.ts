@@ -13,14 +13,23 @@ export const FaqBlock: Block = {
   interfaceName: 'FaqBlock',
   fields: [
     {
+      type: 'richText',
       name: 'title',
-      type: 'text',
-      // required: true,
       localized: true,
       label: {
         en: 'Title',
         de: 'Titel',
       },
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => {
+          return [
+            ...rootFeatures,
+            HeadingFeature({ enabledHeadingSizes: ['h2', 'h3'] }),
+            FixedToolbarFeature(),
+            InlineToolbarFeature(),
+          ]
+        },
+      }),
     },
     {
       type: 'array',

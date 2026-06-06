@@ -80,7 +80,7 @@ export const FaqBlock: React.FC<FaqBlockProps & { locale: Locale }> = (props) =>
       <div className="grid grid-cols-4 gap-x-16 gap-y-2 md:gap-y-4 lg:grid-cols-12">
         {title && (
           <div className="col-span-4 lg:col-span-12">
-            <h2 className="h2">{title}</h2>
+            <RichText data={title} enableGutter={false} className={'mb-2'} locale={locale} />
           </div>
         )}
         <div className="col-span-4 lg:col-span-9">
@@ -95,11 +95,11 @@ export const FaqBlock: React.FC<FaqBlockProps & { locale: Locale }> = (props) =>
                 <AccordionItem key={itemId} value={itemId} className="mt-3 first:mt-0">
                   <AccordionTrigger
                     keepTriggerInView
-                    className="h-auto whitespace-normal pb-1 text-left font-sans text-lg hover:no-underline focus:text-white focus-visible:text-white data-[state=open]:text-background lg:text-[1.25rem] 2xl:text-[1.4375rem]"
+                    className="h-auto whitespace-normal pb-8 pl-0 text-left font-sans text-lg lg:text-[1.25rem] 2xl:text-[1.4375rem]"
                   >
                     {item.question}
                   </AccordionTrigger>
-                  <AccordionContent className="mb-6 mr-6 mt-4 space-y-6 lg:space-y-8">
+                  <AccordionContent className="mb-6 mt-4 space-y-6 lg:space-y-8">
                     {item.answer && <RichText data={item.answer} locale={locale} />}
 
                     {item.enableLink && item.link && (

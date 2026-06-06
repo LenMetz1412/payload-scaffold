@@ -5,10 +5,11 @@ import { CollectionSlugs } from '@/config/collections'
 import { AdminPanelsGroups } from '@/config/collections/groups'
 import { Content } from '@/payload/blocks/Content/config'
 import { FaqBlock } from '@/payload/blocks/FaqBlock/config'
-import { GapBlock } from '@/payload/blocks/GapBlock/config'
 import { HeroBlock } from '@/payload/blocks/HeroBlock/config'
 import { IFrameEmbedBlock } from '@/payload/blocks/IFrameEmbedBlock/config'
 import { MediaBlock } from '@/payload/blocks/MediaBlock/config'
+import { SocialFeedBlock } from '@/payload/blocks/SocialFeedBlock/config'
+import { SpaceBlock } from '@/payload/blocks/SpaceBlock/config'
 import { getBaseDocumentFields } from '@/payload/fields/base-document'
 import { MetaFieldset } from '@/payload/fields/meta'
 import {
@@ -20,6 +21,7 @@ import {
 import { createRevalidateDocHook } from '@/payload/utils/revalidate'
 
 import { DownloadBlock } from '../_blocks/DownloadBlock/config'
+import { GoogleReviewsBlock } from '../_blocks/GoogleReviewsBlock/config'
 import { LogoGridBlock } from '../_blocks/LogoGridBlock/config'
 import { autoFillMetaHook } from '../_utils/meta-hooks'
 import { getCollectionAccessControl } from '../_utils/rbac'
@@ -69,8 +71,10 @@ export const Pages: CollectionConfig = {
                 Content,
                 DownloadBlock,
                 FaqBlock,
-                GapBlock,
+                GoogleReviewsBlock,
                 HeroBlock,
+                SocialFeedBlock,
+                SpaceBlock,
                 IFrameEmbedBlock,
                 LogoGridBlock,
                 MediaBlock,

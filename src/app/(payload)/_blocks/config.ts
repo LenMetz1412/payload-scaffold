@@ -3,11 +3,13 @@ import type {
   ContentBlock,
   Downloads,
   FaqBlock,
-  GapBlock,
+  GoogleReviewsBlock,
   HeroBlock,
   IframeEmbedBlock,
   LogoGridBlock,
   MediaBlock,
+  SocialFeedBlock,
+  SpaceBlock,
 } from '@/payload-types'
 import type { AppPageParams } from '@/utils/page'
 
@@ -15,7 +17,9 @@ export type LayoutBlock =
   | ContentBlock
   | Downloads
   | FaqBlock
-  | GapBlock
+  | GoogleReviewsBlock
+  | SocialFeedBlock
+  | SpaceBlock
   | HeroBlock
   | IframeEmbedBlock
   | LogoGridBlock

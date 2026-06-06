@@ -31,9 +31,9 @@ export const NavbarMenuMobile = ({ footer }: { footer: ReactNode }) => {
     <>
       <SheetHeader />
       <SheetContent
-        className="h-full min-w-full overflow-y-auto"
+        className="max-h-[calc(100vh-88px)] overflow-y-auto bg-black/50 backdrop-blur-md text-white"
         side="top"
-        aria-describedby="menu-contents"
+        aria-describedby={undefined}
       >
         <SheetTitle />
         <Menu />
@@ -47,15 +47,21 @@ const Menu = () => {
   const { locale, items, closeMobileMenu } = useNavbarContext();
   return (
     <>
-      <SearchBar
-        locale={locale}
-        variant="inline"
-        isMobile
-        onAfterSelect={closeMobileMenu}
-      />
+      <div className="flex items-center gap-2">
+        <div className="min-w-0 flex-1">
+          <SearchBar
+            locale={locale}
+            variant="inline"
+            isMobile
+            onAfterSelect={closeMobileMenu}
+          />
+        </div>
+        <div className="shrink-0">
+          <LocaleSwitch currentLocale={locale} />
+        </div>
+      </div>
       <div className="my-8 flex w-fit min-w-60 flex-col gap-2">
         {items
-          .slice(1)
           .map((item) =>
             item.subItems && item.subItems.length > 0 ? (
               <NavMenuItem key={item.id} item={item} />
@@ -63,7 +69,6 @@ const Menu = () => {
               <NavItem key={item.id} item={item} />
             ),
           )}
-        <LocaleSwitch currentLocale={locale} asMobileNavBarItem />
       </div>
     </>
   );

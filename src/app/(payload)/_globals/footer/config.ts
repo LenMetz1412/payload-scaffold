@@ -74,6 +74,52 @@ export const Footer: GlobalConfig = {
       minRows: 1,
     },
     {
+      name: 'socials',
+      type: 'group',
+      label: {
+        en: 'Social Media',
+        de: 'Social Media',
+      },
+      fields: [
+        {
+          name: 'instagram',
+          type: 'group',
+          label: 'Instagram',
+          fields: [
+            { name: 'enabled', type: 'checkbox', label: { en: 'Show Instagram', de: 'Instagram anzeigen' }, defaultValue: false },
+            { name: 'url', type: 'text', label: 'URL', admin: { condition: (_, s) => Boolean(s?.enabled) } },
+          ],
+        },
+        {
+          name: 'linkedin',
+          type: 'group',
+          label: 'LinkedIn',
+          fields: [
+            { name: 'enabled', type: 'checkbox', label: { en: 'Show LinkedIn', de: 'LinkedIn anzeigen' }, defaultValue: false },
+            { name: 'url', type: 'text', label: 'URL', admin: { condition: (_, s) => Boolean(s?.enabled) } },
+          ],
+        },
+        {
+          name: 'facebook',
+          type: 'group',
+          label: 'Facebook',
+          fields: [
+            { name: 'enabled', type: 'checkbox', label: { en: 'Show Facebook', de: 'Facebook anzeigen' }, defaultValue: false },
+            { name: 'url', type: 'text', label: 'URL', admin: { condition: (_, s) => Boolean(s?.enabled) } },
+          ],
+        },
+        {
+          name: 'tiktok',
+          type: 'group',
+          label: 'TikTok',
+          fields: [
+            { name: 'enabled', type: 'checkbox', label: { en: 'Show TikTok', de: 'TikTok anzeigen' }, defaultValue: false },
+            { name: 'url', type: 'text', label: 'URL', admin: { condition: (_, s) => Boolean(s?.enabled) } },
+          ],
+        },
+      ],
+    },
+    {
       name: 'backgroundFooterImage',
       type: 'upload',
       label: 'Media',
